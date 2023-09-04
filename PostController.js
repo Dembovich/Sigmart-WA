@@ -8,7 +8,7 @@ class PostController {
 
             console.log(req.body);
             arrName.push(req.body.name)
-            res.status(200).json({ state: 'Сервер работает!', message: 'Добавлен name - ' + req.body.name })
+            res.status(200).json({ version: '0.1', name: 'Sigmart-WA', time: new Date() })
 
         } catch (e) {
             res.status(500).json(e)

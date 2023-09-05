@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "safestart": "node --experimental-modules index.js"
   },
   "keywords": [],
   "author": "Denis Vasilkov @dembovich",

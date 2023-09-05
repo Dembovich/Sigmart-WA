@@ -1,13 +1,12 @@
 {
   "name": "Sigmart-WA",
-  "version": "0.1.0",
+  "version": "0.8.0",
   "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "node request.js"
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "Denis Vasilkov @dembovich",

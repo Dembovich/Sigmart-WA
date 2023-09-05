@@ -1,4 +1,5 @@
 ﻿import * as TGbot from "./TGbot.js"
+import * as OzonPush from "./OzonPush.js"
 
 class PostController {
 
@@ -10,7 +11,7 @@ class PostController {
             switch (state) {
 
                 case 200:
-                    return res.status(state).json({ version: '0.1', name: 'Sigmart-WA', time: TimeNow })
+                    return res.status(state).json({ result: true })
                     break
 
                 case 500:
@@ -34,27 +35,30 @@ class PostController {
 
                 // Проверка связи
                 case 'TYPE_PING':
-                    TGbot.sendMessage('ПРОИСХОДИТ ПИНГ')
-                    return _ozonResponse(res, 200, TimeNow)
+                    //TGbot.sendMessage(211614859, 'Пинганули - ' + JSON.stringify(req.body), 'Markdown')
+                    return res.status(200).json({ version: '0.8', name: 'Sigmart-WA', time: TimeNow })
 
                 // Новое сообщение в чате
                 case 'TYPE_NEW_MESSAGE':
-                    //TYPE_NEW_MESSAGE(contentRequest, shLog)
+                    TGbot.sendMessage(211614859, OzonPush.TYPE_NEW_MESSAGE(req.body), 'Markdown')
                     return _ozonResponse(res, 200, TimeNow)
 
-                // Обновление товара
+                // Новое сообщение в чате
+                case 'TYPE_CREATE_OR_UPDATE_ITEM':
+                    TGbot.sendMessage(211614859, OzonPush.TYPE_CREATE_OR_UPDATE_ITEM(req.body), 'Markdown')
+                    return _ozonResponse(res, 200, TimeNow)
+
+                // !Обновление товара (DONT WORK)
                 case 'TYPE_UPDATE_ITEM':
-                    //TYPE_UPDATE_ITEM(contentRequest, shLog)
+                    return _ozonResponse(res, 200, TimeNow)
+
+                // !Создания товара (DONT WORK)
+                case 'TYPE_CREATE_ITEM':
                     return _ozonResponse(res, 200, TimeNow)
 
                 // Изменение ценового индекса
                 case 'TYPE_PRICE_INDEX_CHANGED':
                     //TYPE_PRICE_INDEX_CHANGED(contentRequest, shLog)
-                    return _ozonResponse(res, 200, TimeNow)
-
-                // Создания товара
-                case 'TYPE_CREATE_ITEM':
-                    //TYPE_CREATE_ITEM(contentRequest, shLog)
                     return _ozonResponse(res, 200, TimeNow)
 
                 // Новое отправление

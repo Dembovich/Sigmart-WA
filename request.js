@@ -1,20 +1,29 @@
 ﻿import fetch from 'node-fetch';
-import dotenv from 'dotenv'
-dotenv.config()
 
-const body = {
-    chat_id: 211614859,
-    text: 'ЙОУ из node js',
-    parse_mode: 'html'
-};
+export async function request({
+        url,
+        method = 'get',
+        headers = { 'Content-Type': 'application/json' },
+        body
+    }) {
 
-const response = await fetch('https://api.telegram.org/bot' + process.env.BOT_TOKEN + '/sendMessage', {
-    method: 'post',
-    body: JSON.stringify(body),
-    headers: { 'Content-Type': 'application/json' }
-});
-const data = await response.json();
+    let options = {
+        method: method,
+        headers: headers
+    }
 
-console.log(data);
+    if (body) {
+        options.body = JSON.stringify(body);
+    }
+
+    const response = await fetch(url, options);
+    const data = await response.json();
+
+    //console.log(data);
+
+    return data
+
+}
+
 
 

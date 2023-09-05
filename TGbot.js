@@ -1,6 +1,14 @@
+ï»¿import { request } from './request.js'
+import dotenv from 'dotenv'
+dotenv.config()
 
 export function sendMessage(chatId, message, parse_mode = 'html') {
 
+    if (!message || !chatId) {
+        return
+    }
+
+    let urlMethodSendMessage = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`
     let lastChar = message.indexOf('\n', 4000)
 
     if (lastChar == -1 || lastChar >= 4096) {
@@ -14,15 +22,18 @@ export function sendMessage(chatId, message, parse_mode = 'html') {
         }
     }
 
-    UrlFetchApp.fetch(telegramUrl + '/sendMessage', {
+    let options = {
+        url: urlMethodSendMessage,
         method: 'post',
-        contentType: 'application/json',
-        payload: JSON.stringify({
-            chat_id: chatId, // Äåíèñ: 211614859 
+        header: { 'Content-Type': 'application/json' },
+        body: {
+            chat_id: chatId, // @dembovich: 211614859 
             text: message.substring(0, lastChar),
-            parse_mode: parse_mode,
-        })
-    })
+            parse_mode: parse_mode
+        }
+    }
+
+    const data = request(options)
 
     if (message.length > lastChar) {
 
@@ -33,6 +44,8 @@ export function sendMessage(chatId, message, parse_mode = 'html') {
     }
 
 }
+
+
 
 
 

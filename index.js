@@ -1,8 +1,10 @@
 ﻿import express from 'express'
 import router from "./router.js"
+import * as TGbot from "./TGbot.js"
+import dotenv from 'dotenv'
+dotenv.config()
 
 const PORT = process.env.PORT || 3000;
-
 const app = express()
 
 app.use(express.json())
@@ -19,5 +21,7 @@ async function startApp() {
         console.log(e)
     }
 }
+
+TGbot.sendMessage('Сервер запущен!')
 
 startApp()

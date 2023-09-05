@@ -1,4 +1,5 @@
-﻿
+﻿import * as TGbot from "./TGbot.js"
+
 class PostController {
 
 
@@ -33,7 +34,7 @@ class PostController {
 
                 // Проверка связи
                 case 'TYPE_PING':
-                    
+                    TGbot.sendMessage('ПРОИСХОДИТ ПИНГ')
                     return _ozonResponse(res, 200, TimeNow)
 
                 // Новое сообщение в чате

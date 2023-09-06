@@ -1,4 +1,7 @@
-﻿var MessageType = {
+﻿import ENUM from './enum.json' assert { type: "json" };
+
+/*
+var MessageType = {
 
 	TYPE_NEW_MESSAGE: 'Новое сообщение в чате',									// DONE
 	TYPE_CREATE_OR_UPDATE_ITEM: 'Создание или обновление товара',				// DONE
@@ -17,7 +20,7 @@
 
 
 }
-
+*/
 // Chats
 var ChatType = {
 
@@ -110,7 +113,7 @@ export function TYPE_NEW_MESSAGE(content) {
 	*/
 
 	let textToTG =
-		`💽 *${MessageType[content.message_type]}*
+		`💽 *${ENUM.MessageType[content.message_type]}*
 
 *Магазин:* ${Shop[content.seller_id] ? Shop[content.seller_id] : content.seller_id}
 *Тип чата:* ${ChatType[content.chat_type]}
@@ -129,7 +132,7 @@ export function TYPE_CREATE_OR_UPDATE_ITEM(content) {
 
 	const textToTG =
 
-		`💽 *${MessageType[content.message_type]}*
+		`💽 *${ENUM.MessageType[content.message_type]}*
 
 *Магазин:* ${Shop[content.seller_id] ? Shop[content.seller_id] : content.seller_id}
 *Артикул:* ${content.offer_id}

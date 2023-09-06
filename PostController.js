@@ -1,5 +1,6 @@
 ﻿import * as TGbot from "./TGbot.js"
 import * as OzonPush from "./OzonPush.js"
+import ENUM from './enum.json' assert { type: "json" };
 
 class PostController {
 
@@ -13,7 +14,6 @@ class PostController {
                 case 200:
                     return res.status(state).json({ result: true })
                     break
-
                 case 500:
                     return res.status(state).json({ error: { code: "ERROR_UNKNOWN", message: 'Сорян, наша вина', details: null } })
                     break
@@ -35,42 +35,35 @@ class PostController {
 
                 // Проверка связи
                 case 'TYPE_PING':
-                    //TGbot.sendMessage(211614859, 'Пинганули - ' + JSON.stringify(req.body), 'Markdown')
-                    return res.status(200).json({ version: '0.8', name: 'Sigmart-WA', time: TimeNow })
+                    //TGbot.sendMessage(ENUM.TGchatID.dembovich, 'Пинганули - ' + JSON.stringify(req.body), 'Markdown')
+                    return res.status(200).json({ version: '0.9', name: 'Sigmart-WA', time: TimeNow })
 
                 // Новое сообщение в чате
                 case 'TYPE_NEW_MESSAGE':
-                    TGbot.sendMessage(211614859, OzonPush.TYPE_NEW_MESSAGE(req.body), 'Markdown')
+                    TGbot.sendMessage(ENUM.TGchatID.dembovich, OzonPush.TYPE_NEW_MESSAGE(req.body))
                     return _ozonResponse(res, 200, TimeNow)
 
-                // Новое сообщение в чате
+                // Создание или обновление товара
                 case 'TYPE_CREATE_OR_UPDATE_ITEM':
-                    TGbot.sendMessage(211614859, OzonPush.TYPE_CREATE_OR_UPDATE_ITEM(req.body), 'Markdown')
-                    return _ozonResponse(res, 200, TimeNow)
-
-                // !Обновление товара (DONT WORK)
-                case 'TYPE_UPDATE_ITEM':
-                    return _ozonResponse(res, 200, TimeNow)
-
-                // !Создания товара (DONT WORK)
-                case 'TYPE_CREATE_ITEM':
+                    TGbot.sendMessage(ENUM.TGchatID.dembovich, OzonPush.TYPE_CREATE_OR_UPDATE_ITEM(req.body))
                     return _ozonResponse(res, 200, TimeNow)
 
                 // Изменение ценового индекса
                 case 'TYPE_PRICE_INDEX_CHANGED':
-                    //TYPE_PRICE_INDEX_CHANGED(contentRequest, shLog)
+                    TGbot.sendMessage(ENUM.TGchatID.dembovich, OzonPush.TYPE_PRICE_INDEX_CHANGED(req.body))
                     return _ozonResponse(res, 200, TimeNow)
 
                 // Новое отправление
                 case 'TYPE_NEW_POSTING':
-                    //TYPE_NEW_POSTING(contentRequest, shLog)
+                    TGbot.sendMessage(ENUM.TGchatID.dembovich, OzonPush.TYPE_NEW_POSTING(req.body))
                     return _ozonResponse(res, 200, TimeNow)
 
                 // Отмена отправления
                 case 'TYPE_POSTING_CANCELLED':
-                    //TYPE_POSTING_CANCELLED(contentRequest, shLog)
+                    TGbot.sendMessage(ENUM.TGchatID.dembovich, OzonPush.TYPE_POSTING_CANCELLED(req.body))
                     return _ozonResponse(res, 200, TimeNow)
 
+                // Если сток стал <10 ALARM
                 default:
                     console.log('Неизвестный приложению тип')
                     return _ozonResponse(res, 501, TimeNow)
@@ -84,6 +77,7 @@ class PostController {
 
         } catch (e) {
             console.log(e)
+            TGbot.sendMessage(ENUM.TGchatID.dembovich, '🔴 *Ошибка в PostController* - ' - e.message)
             _ozonResponse(res, 500, TimeNow)
 
         }

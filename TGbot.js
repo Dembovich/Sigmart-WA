@@ -2,7 +2,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-export function sendMessage(chatId, message, parse_mode = 'html') {
+export function sendMessage(chatId, message, parse_mode = 'Markdown') {
 
     if (!message || !chatId) {
         return

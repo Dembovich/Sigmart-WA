@@ -23,7 +23,7 @@ async function startApp() {
 }
 
 console.log('START')
-TGbot.sendMessage(211614859, 'Сервер запущен!', 'html')
+TGbot.sendMessage(211614859, 'Сервер запущен!')
 
 
 startApp()

@@ -40,27 +40,27 @@ class PostController {
 
                 // Новое сообщение в чате
                 case 'TYPE_NEW_MESSAGE':
-                    TGbot.sendMessage(ENUM.TGchatID.dembovich, OzonPush.TYPE_NEW_MESSAGE(req.body))
+                    TGbot.sendMessage(ENUM.TGchatID.MainChat, OzonPush.TYPE_NEW_MESSAGE(req.body))
                     return _ozonResponse(res, 200, TimeNow)
 
                 // Создание или обновление товара
                 case 'TYPE_CREATE_OR_UPDATE_ITEM':
-                    TGbot.sendMessage(ENUM.TGchatID.dembovich, OzonPush.TYPE_CREATE_OR_UPDATE_ITEM(req.body))
+                    TGbot.sendMessage(ENUM.TGchatID.MainChat, OzonPush.TYPE_CREATE_OR_UPDATE_ITEM(req.body))
                     return _ozonResponse(res, 200, TimeNow)
 
                 // Изменение ценового индекса
                 case 'TYPE_PRICE_INDEX_CHANGED':
-                    TGbot.sendMessage(ENUM.TGchatID.dembovich, OzonPush.TYPE_PRICE_INDEX_CHANGED(req.body))
+                    TGbot.sendMessage(ENUM.TGchatID.MainChat, OzonPush.TYPE_PRICE_INDEX_CHANGED(req.body))
                     return _ozonResponse(res, 200, TimeNow)
 
                 // Новое отправление
                 case 'TYPE_NEW_POSTING':
-                    TGbot.sendMessage(ENUM.TGchatID.dembovich, OzonPush.TYPE_NEW_POSTING(req.body))
+                    TGbot.sendMessage(ENUM.TGchatID.FBSchat, OzonPush.TYPE_NEW_POSTING(req.body))
                     return _ozonResponse(res, 200, TimeNow)
 
                 // Отмена отправления
                 case 'TYPE_POSTING_CANCELLED':
-                    TGbot.sendMessage(ENUM.TGchatID.dembovich, OzonPush.TYPE_POSTING_CANCELLED(req.body))
+                    TGbot.sendMessage(ENUM.TGchatID.FBSchat, OzonPush.TYPE_POSTING_CANCELLED(req.body))
                     return _ozonResponse(res, 200, TimeNow)
 
                 // Если сток стал <10 ALARM

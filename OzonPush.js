@@ -1,5 +1,7 @@
 ﻿import ENUM from './enum.json' assert { type: "json" };
 
+var arrMessageSeller_Notification = []
+
 function getOzShop(id) {
     return ENUM.Shop[id] ? ENUM.Shop[id] : id
 }
@@ -22,23 +24,24 @@ export function TYPE_NEW_MESSAGE(content) {
     if (content.user.id == 'chat_seller_bot' || content.data[0] == "Оцените нашу работу") { return null }
 
     // НЕ повторять одинаковые оповещения с разных кабинетов
-    /*
-        if (content.chat_type == 'Seller_Notification') {
-	
-            let arrMessage = shLog.getRange('D:D').getValues().flat();
-            let excerpt = content.data[0].substring(0, 50);
-            let skip = false;
-	
-            arrMessage.forEach((el) => {
-	
-                if (el == excerpt) { skip = true; }
-	
-            })
-	
-            if (skip) { return null }
-	
-        }
-    */
+
+    if (content.chat_type == 'Seller_Notification') {
+
+        let pieceMessage = content.data[0].substring(0, 50);
+        let skip = false;
+
+        arrMessageSeller_Notification.forEach((el) => {
+
+            if (el == pieceMessage) { skip = true; }
+
+        })
+
+        if (skip) { return null }
+
+        arrMessageSeller_Notification.push(pieceMessage)
+    }
+
+    console.log(arrMessageSeller_Notification)
 
     let textToTG =
         `💽 *${ENUM.MessageType[content.message_type]}*
@@ -82,6 +85,7 @@ export function TYPE_NEW_POSTING(content) {
 *Магазин:* ${getOzShop(content.seller_id)}
 *Номер отправления:* ${content.posting_number}
 *Начало обработки отправления:* ${(new Date(content.in_process_at)).toLocaleString('ru')}
+
 *Товыры(пока что SKU):*
 ${getProductInPosting(content.products)}`
             .replace(/_/gi, ' ')

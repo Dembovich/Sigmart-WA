@@ -61,6 +61,8 @@ export function TYPE_NEW_MESSAGE(content) {
 // Создание или обновление товара
 export function TYPE_CREATE_OR_UPDATE_ITEM(content) {
 
+    if (!content.is_error) { return null }
+
     const textToTG =
 
         `💽 *${ENUM.MessageType[content.message_type]}*
